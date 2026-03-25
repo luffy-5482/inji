@@ -1,0 +1,27 @@
+$kind: http-request
+name: Create User
+url: "{{mock_identity_system_url}}/v1/mock-identity-system/identity"
+method: POST
+body:
+  type: json
+  content: >-
+    {
+      "requestTime": "{{$isoTimestamp}}",
+      "request": {
+        "individualId": "9999941057",
+        "pin": "111111",
+        "fullName": [{"language": "eng", "value": "Farmer Test"}],
+        "givenName": [{"language": "eng", "value": "Farmer"}],
+        "familyName": [{"language": "eng", "value": "Test"}],
+        "gender": [{"language": "eng", "value": "Male"}],
+        "dateOfBirth": "1990/01/01",
+        "email": "farmer@example.com",
+        "phone": "9876543210",
+        "encodedPhoto": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "locality": [{"language": "eng", "value": "Test Locality"}],
+        "region": [{"language": "eng", "value": "Test Region"}],
+        "country": [{"language": "eng", "value": "IN"}],
+        "postalCode": "560001"
+      }
+    }
+order: 1000

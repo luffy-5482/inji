@@ -1,0 +1,5 @@
+$kind: http-request
+name: http://localhost:8081/v1/mockmv/adjudication/cases
+url: http://localhost:8081/v1/mockmv/adjudication/cases
+method: GET
+order: 1774282138172

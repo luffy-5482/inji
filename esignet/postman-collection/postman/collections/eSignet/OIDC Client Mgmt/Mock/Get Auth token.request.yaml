@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{iam_url}}/auth/realms/mosip/protocol/openid-connect/token"
+method: POST
+body:
+  type: urlencoded
+  content:
+    client_secret: ysd1exB4FXsZebbA
+    client_id: mosip-pms-client
+    grant_type: client_credentials
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = JSON.parse(pm.response.text());
+      var data = jsonData.access_token;
+      console.log(data);
+      pm.environment.set("authtoken",data);
+    language: text/javascript
+order: 1000

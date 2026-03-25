@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/linked-authorization/link-status"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "transactionId": "{{transaction_id}}",
+            "linkCode": "{{link_code}}"
+        }
+    }
+order: 7000

@@ -1,0 +1,62 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/client-mgmt/client/{{client_id}}"
+method: PUT
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "logoUri": "{{$randomImageUrl}}",
+            "redirectUris": [
+                   "{{redirection_url}}",
+                 "io.mosip.residentapp://oauth",
+                 "http://localhost:5000/**",
+                 "http://localhost:3000/registration/*"
+            ],
+            "userClaims": [
+                "name",
+                "email",
+                "gender",
+                "phone_number",
+                "birthdate",
+                "picture",
+                "address"
+            ],
+            "authContextRefs": [
+                "mosip:idp:acr:generated-code",
+                "mosip:idp:acr:password",
+                "mosip:idp:acr:linked-wallet",
+                "mosip:idp:acr:biometrics",
+                "mosip:idp:acr:static-code"
+            ],
+            "status": "ACTIVE",
+            "grantTypes": [
+                "authorization_code"
+            ],
+            "clientName": "{{$randomCompanyName}}",
+            "clientAuthMethods": [
+                "private_key_jwt"
+            ],
+            "additionalConfig": {
+                "userinfo_response_type": "JWS",
+                "purpose": {
+                    "type": "verify",
+                    "title": {
+                        "@none": "title"
+                    },
+                    "subTitle": {
+                        "@none": "subtitle"
+                    }
+                },
+                "signup_banner_required": true,
+                "forgot_pwd_link_required": true,
+                "consent_expire_in_mins": 20
+            }
+        }
+    }
+auth:
+  type: noauth
+order: 4000

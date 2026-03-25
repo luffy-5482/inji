@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/authorization/claim-details"
+method: GET
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+  oauth-details-key: "{{oauth_details_key}}"
+  oauth-details-hash: "{{oauth_details_hash}}"
+body:
+  type: json
+  content: ""
+order: 5000

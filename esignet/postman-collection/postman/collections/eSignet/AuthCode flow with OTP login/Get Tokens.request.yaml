@@ -1,0 +1,53 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/oauth/v2/token"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: urlencoded
+  content:
+    code: "{{code}}"
+    client_id: "{{client_id}}"
+    redirect_uri: "{{redirection_url}}"
+    grant_type: authorization_code
+    client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+    client_assertion: "{{client_assertion}}"
+    code_verifier: "{{codeVerifier}}"
+scripts:
+  - type: beforeRequest
+    code: >
+      eval(pm.environment.get('pmlib_code'))
+
+
+      // Set headers for JWT
+
+      var header = {	
+      	"alg": "RS256"
+      };
+
+
+      const private_key_jwk =
+      JSON.parse(pm.environment.get("client_private_key"));
+
+
+      const signed_jwt = pmlib.clientAssertPrivateKey(private_key_jwk,
+      pm.environment.get('client_id'), pm.environment.get('audience'), exp =
+      60,  "RS256");
+
+
+      pm.collectionVariables.set("client_assertion",signed_jwt);
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("Validate Id-token", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.id_token).not.equals(null);
+      });
+
+      pm.test("Validate access-token", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.access_token).not.equals(null);
+          pm.environment.set("access_token", jsonData.access_token);
+      });
+    language: text/javascript
+order: 6000

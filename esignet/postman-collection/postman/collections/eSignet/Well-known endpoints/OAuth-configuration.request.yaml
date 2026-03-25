@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/oauth/.well-known/oauth-authorization-server"
+method: GET
+order: 3000

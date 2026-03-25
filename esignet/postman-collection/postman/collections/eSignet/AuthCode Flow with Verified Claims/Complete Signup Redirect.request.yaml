@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/authorization/complete-signup-redirect"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+  oauth-details-key: "{{oauth_details_key}}"
+  oauth-details-hash: "{{oauth_details_hash}}"
+body:
+  type: json
+  content: "{\r
+
+    \    \"requestTime\": \"{{$isoTimestamp}}\",\r
+
+    \    \"request\": {\r
+
+    \        \"transactionId\": \"{{transaction_id}}\"\r
+
+    \    }\r
+
+    }"
+order: 7000

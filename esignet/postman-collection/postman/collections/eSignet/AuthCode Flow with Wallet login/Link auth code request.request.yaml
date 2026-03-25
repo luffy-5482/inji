@@ -1,0 +1,25 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/linked-authorization/link-auth-code"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "transactionId": "{{transaction_id}}",
+            "linkedCode": "{{link_code}}"
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Validate code", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.code).not.equals(null);
+          pm.environment.set("code", jsonData.response.code);
+      });
+    language: text/javascript
+order: 10000

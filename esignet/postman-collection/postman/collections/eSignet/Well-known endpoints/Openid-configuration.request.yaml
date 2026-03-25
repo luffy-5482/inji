@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/oidc/.well-known/openid-configuration"
+method: GET
+order: 2000

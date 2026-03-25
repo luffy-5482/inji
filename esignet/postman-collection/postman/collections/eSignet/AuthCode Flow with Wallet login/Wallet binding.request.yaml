@@ -1,0 +1,46 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/binding/wallet-binding"
+method: POST
+headers:
+  PARTNER-ID: "{{relying_party_id}}"
+  PARTNER-API-KEY: "{{partner_api_key}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "individualId": "{{individual_id}}",
+            "challengeList": [
+                {
+                    "authFactorType": "OTP",
+                    "challenge": "111111",
+                    "format": "alpha-numeric"
+                }
+            ],
+            "publicKey": {{binding_public_key}},
+            "authFactorType": "WLA",
+            "format": "jwt"
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = JSON.parse(responseBody);
+      var cert = JSON.stringify(jsonData.response.certificate);
+      console.log(cert);
+      pm.environment.set("bind_certificate",cert);
+    language: text/javascript
+  - type: beforeRequest
+    code: |-
+      eval(pm.environment.get('pmlib_code'))
+      keyPair = pmlib.rs.KEYUTIL.generateKeypair("RSA", 2048);
+      jwkPrivateKey = pmlib.rs.KEYUTIL.getJWK(keyPair.prvKeyObj);
+      jwkPublicKey  = pmlib.rs.KEYUTIL.getJWK(keyPair.pubKeyObj, nokid = true);
+      jwkPublicKey["alg"] = "RS256";
+      jwkPublicKey["use"] = "sig";
+
+      pm.environment.set("binding_public_key", JSON.stringify(jwkPublicKey))
+      pm.environment.set("binding_private_key", JSON.stringify(jwkPrivateKey));
+    language: text/javascript
+order: 3000

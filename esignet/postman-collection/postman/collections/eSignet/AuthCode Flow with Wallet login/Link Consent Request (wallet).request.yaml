@@ -1,0 +1,74 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/linked-authorization/v2/consent"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "linkedTransactionId": "{{link_transaction_id}}",
+            "acceptedClaims": {{accepted_claims}},
+            "signature": "{{detachedSignature}}"
+        }
+    }
+scripts:
+  - type: beforeRequest
+    code: >-
+      eval(pm.environment.get('pmlib_code'));
+
+
+      const private_key_jwk =
+      JSON.parse(pm.environment.get("binding_private_key"));
+
+      var certificate = eval(pm.environment.get('bind_certificate'));
+
+      var public_key_jwk = pmlib.rs.KEYUTIL.getJWK(certificate);
+
+
+      // Set headers for JWT
+
+      var header = {
+          "x5t#S256" : public_key_jwk['x5t#S256'],
+      	"alg": "RS256"
+      };
+
+      var payload = {}
+
+      var acceptedClaims = pm.environment.get('accepted_claims');
+
+      if(acceptedClaims != undefined && Array.isArray(acceptedClaims)){
+          payload["acceptedClaims"] = acceptedClaims.sort()
+      }
+
+      var permittedAuthorizedScopes =
+      eval(pm.environment.get('permitted_authorized_scopes'));
+
+      if(permittedAuthorizedScopes != undefined &&
+      Array.isArray(permittedAuthorizedScopes)){
+          payload["permittedAuthorizedScopes"] = permittedAuthorizedScopes.sort()
+      }
+
+      const signedPayload = pmlib.rs.jws.JWS.sign(
+          null, header, payload, private_key_jwk
+      );
+
+      var parts = signedPayload.split(".");
+
+      var detachedSignature = parts[0] + "." + parts[2];
+
+      pm.environment.set("detachedSignature",  detachedSignature);
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("Validate code", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.code).not.equals(null);
+          pm.collectionVariables.set("code", jsonData.response.code);
+      });
+    language: text/javascript
+settings:
+  followRedirects: false
+order: 9000

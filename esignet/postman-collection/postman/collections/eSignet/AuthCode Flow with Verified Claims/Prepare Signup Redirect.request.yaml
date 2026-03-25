@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/authorization/prepare-signup-redirect"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+  oauth-details-key: "{{oauth_details_key}}"
+  oauth-details-hash: "{{oauth_details_hash}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "transactionId": "{{transaction_id}}",
+            "pathFragment": "path-fragment"
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = pm.response.json();
+      var id_token = jsonData.response.idToken;
+      pm.expect(id_token).not.equals(null);
+
+      //Use id_token_hint to start new OIDC flow
+      pm.globals.set("id_token_hint", id_token); 
+    language: text/javascript
+order: 6000

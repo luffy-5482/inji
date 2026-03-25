@@ -1,0 +1,86 @@
+$kind: http-request
+name: Authorize / OAuthdetails request
+url: "{{url}}/v1/esignet/authorization/v3/oauth-details"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "clientId": "{{client_id}}",
+            "scope": "{{scope}}",
+            "responseType": "code",
+            "redirectUri": "{{redirection_url}}",
+            "display": "popup",
+            "prompt": "login",
+            "acrValues": "mosip:idp:acr:linked-wallet",
+            "claims": {{claims}},
+            "nonce" : "{{$randomAlphaNumeric}}",
+            "state" : "{{state}}",
+            "claimsLocales" : "en",
+            "codeChallenge" : "{{codeChallenge}}",
+            "codeChallengeMethod" : "{{codeChallengeMethod}}"
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: >-
+      var btoa = require('btoa');
+
+
+      pm.test("Validate transactionId", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.transactionId).not.equals(null);
+          pm.environment.set("transaction_id", jsonData.response.transactionId);
+      });
+
+
+      pm.test("Validate auth factors", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.authFactors[0].name).to.eql(pm.environment.get("expected_amr"));
+      });
+
+
+      pm.test("set oauth-details-hash", function () {
+          var jsonData = pm.response.json();
+          var sha256Hash = CryptoJS.SHA256(JSON.stringify(jsonData.response));
+          var base64Encoded = sha256Hash.toString(CryptoJS.enc.Base64);
+          // Remove padding characters
+          base64Encoded = base64Encoded.replace(/=+$/, '');
+          // Replace '+' with '-' and '/' with '_' to convert to base64 URL encoding
+          base64Encoded = base64Encoded.replace(/\+/g, '-').replace(/\//g, '_');
+          console.log("base64Encoded : " + base64Encoded);
+          pm.environment.set("oauth_details_key", jsonData.response.transactionId);
+          pm.environment.set("oauth_details_hash", base64Encoded);
+      });
+    language: text/javascript
+  - type: beforeRequest
+    code: "eval(pm.environment.get('pmlib_code'));\r
+
+      \r
+
+      // Generate PKCE challenge + verifier\r
+
+      const pkce = pmlib.pkceChallenge();\r
+
+      \r
+
+      // Store values in collection variables (so you can use in requests)\r
+
+      pm.collectionVariables.set(\"codeChallenge\", pkce.code_challenge);\r
+
+      pm.collectionVariables.set(\"codeChallengeMethod\",
+      pkce.code_challenge_method);\r
+
+      pm.collectionVariables.set(\"codeVerifier\", pkce.code_verifier);\r
+
+      \r
+
+      // Debug log (optional)\r
+
+      console.log(\"PKCE Generated:\", pkce);"
+    language: text/javascript
+order: 4000

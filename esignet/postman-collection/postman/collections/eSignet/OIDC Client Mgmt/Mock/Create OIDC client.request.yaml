@@ -1,0 +1,54 @@
+$kind: http-request
+name: Create OIDC client
+url: "{{url}}/v1/esignet/client-mgmt/client"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: >-
+    {    
+        "requestTime": "{{requestTime}}",
+        "request": {
+            "clientId": "wallet-demo-client",
+            "clientName": "Wallet Demo Client",
+            "publicKey": {
+                "kty": "RSA",
+                "e": "AQAB",
+                "n": "iO0MR5p6kVb0UiY3d5KZnQssmWzIIbQxYOI-ki xujdBjQ_AE_0vLmN6Yd053wxXpFQ0yUFtLbL NQXUQVnMUHcFDmmTX7dVz0v_QKlBF lAh83PJ9PkCzFLKeuOGiz i7m9kqNX YHqGhvcuUa89tjy lU4  jpQiN-YPJMs08kHGnBEaQnTzIy-X2m r6S-cw1A28rVkSm-QVl5lp5UkOXnZCl iPGNM uA Xgx_7t2PZfsXQwhn6RP R8SD2rU9rVdPf3tEnin1iihM7zP6U Ivnv5xC bzKyoutkcRutGq7es-UMZWIsBMBpnBARYbrtm_SFfDZfJGdL9NudqVzjUMVlT_YN2qTQ",
+                "alg": "RS256",
+                 "kid": "wallet-demo-client"
+                },
+            "relyingPartyId": "wallet-demo-client",
+            "userClaims": [
+                "name",
+                "email",
+                "gender",
+                "phone_number",
+                "picture",
+                "birthdate"
+            ],
+            "authContextRefs": [
+                "mosip:idp:acr:static-code"
+            ],
+            "logoUri": "https://mosip.github.io/inji-config/logos/agro-vertias-logo.png",
+            "redirectUris": [
+                "io.mosip.residentapp.inji://wla-auth"
+            ],
+            "grantTypes": [
+                "authorization_code"
+            ],
+            "clientAuthMethods": [
+                "private_key_jwt"
+            ]
+        }
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{authtoken}}"
+scripts:
+  - type: beforeRequest
+    code: pm.variables.set("requestTime", new Date().toISOString());
+    language: text/javascript
+order: 3000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/oauth/.well-known/jwks.json"
+method: GET
+order: 1000

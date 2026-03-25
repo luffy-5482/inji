@@ -1,0 +1,128 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/oidc/userinfo"
+method: GET
+headers:
+  Authorization: DPoP {{access_token}}
+auth:
+  type: noauth
+scripts:
+  - type: beforeRequest
+    code: "eval(pm.environment.get('pmlib_code'))\r
+
+      \r
+
+      // dpop\r
+
+      async function createDPoPProof(privateKey, publicKey) {\r
+
+      \    const now = Math.floor(Date.now() / 1000);\r
+
+      \    const jti = crypto.randomUUID();\r
+
+      \r
+
+      \    // JWT Header for RSA-256\r
+
+      \    const header = {\r
+
+      \        \"typ\": \"dpop+jwt\",\r
+
+      \        \"alg\": \"RS256\",\r
+
+      \        \"jwk\": publicKey\r
+
+      \    };\r
+
+      \r
+
+      \    const access_token = pm.environment.get(\"access_token\");\r
+
+      \r
+
+      \    // JWT Payload\r
+
+      \    const payload = {\r
+
+      \        \"jti\": jti,\r
+
+      \        \"htm\": pm.request.method.toUpperCase(),\r
+
+      \        \"htu\":
+      `${pm.environment.get(\"url\")}/v1/esignet/oidc/userinfo`,\r
+
+      \        \"iat\": now,\r
+
+      \        \"ath\": pmlib.rs.hextob64u(pmlib.sha256(access_token))\r
+
+      \    };\r
+
+      \r
+
+      \    const dpopNonce = pm.environment.get(\"dpop_nonce\") || null;\r
+
+      \r
+
+      \    if (dpopNonce) {\r
+
+      \        payload.nonce = dpopNonce;\r
+
+      \    }\r
+
+      \r
+
+      \    return pmlib.jwtSign(privateKey, payload, header, 60, \"RS256\");\r
+
+      }\r
+
+      \r
+
+      const dpopPublicKey =
+      JSON.parse(pm.environment.get(\"dpop_public_key\"));\r
+
+      const dpopPrivateKey =
+      JSON.parse(pm.environment.get(\"dpop_private_key\"));\r
+
+      \r
+
+      // Generate DPoP proof with RS256\r
+
+      const dpopProof = await createDPoPProof(dpopPrivateKey, dpopPublicKey);\r
+
+      \r
+
+      pm.request.headers.add({\r
+
+      \    key: \"DPoP\",\r
+
+      \    value: dpopProof\r
+
+      });"
+    language: text/javascript
+  - type: afterResponse
+    code: "if (pm.response.code === 401 &&
+      pm.response.headers.get(\"WWW-Authenticate\") && \r
+
+      pm.response.headers.get(\"WWW-Authenticate\").includes(\"use_dpop_nonce\"\
+      )) {\r
+
+      \    const nonce = pm.response.headers.get(\"DPoP-Nonce\");\r
+
+      \    if (nonce) {\r
+
+      \        pm.environment.set(\"dpop_nonce\", nonce);\r
+
+      \        console.log(\"Saved new DPoP-Nonce:\", nonce);\r
+
+      \    }\r
+
+      } else if(pm.response.code === 200) {\r
+
+      \    // If successful, clear the nonce so next run starts clean\r
+
+      \    pm.environment.unset(\"dpop_nonce\");\r
+
+      \    console.log(\"Cleared DPoP-Nonce userinfo\");\r
+
+      }"
+    language: text/javascript
+order: 8000

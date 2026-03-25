@@ -1,0 +1,56 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/linked-authorization/v2/authenticate"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "linkedTransactionId": "{{link_transaction_id}}",
+            "individualId": "{{individual_id}}",
+            "challengeList" : [
+                {
+                    "authFactorType" : "WLA",
+                    "challenge" : "{{wla_challenge}}",
+                    "format" : "jwt"
+                }
+            ]
+        }
+    }
+scripts:
+  - type: beforeRequest
+    code: >
+      eval(pm.environment.get('pmlib_code'))
+
+
+      //sign token
+
+      const private_key_jwk =
+      JSON.parse(pm.environment.get("binding_private_key"));
+
+      var certificate = eval(pm.environment.get('bind_certificate'));
+
+      var public_key_jwk = pmlib.rs.KEYUTIL.getJWK(certificate);
+
+
+      // Set headers for JWT
+
+      var header = {
+          "x5t#S256" : public_key_jwk['x5t#S256'],
+      	"alg": "RS256"
+      };
+
+
+      const signed_jwt = pmlib.jwtSign(private_key_jwk, {
+          "aud" : pm.environment.get('wla_audience'),
+      	"sub": pm.environment.get('individual_id'),
+          "iss" : "postman-inji"
+      }, header, exp=600, alg = "RS256")
+
+
+      pm.collectionVariables.set("wla_challenge",signed_jwt);
+    language: text/javascript
+order: 8000

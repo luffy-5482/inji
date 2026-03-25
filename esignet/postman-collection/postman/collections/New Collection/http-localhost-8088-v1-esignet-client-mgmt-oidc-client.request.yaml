@@ -1,0 +1,71 @@
+$kind: http-request
+name: http://localhost:8088/v1/esignet/client-mgmt/oidc-client
+url: http://localhost:8088/v1/esignet/client-mgmt/oidc-client
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf}}"
+body:
+  type: json
+  content: "{\r
+
+    \  \"requestTime\": \"{{requestTime}}\",\r
+
+    \  \"request\": {\r
+
+    \    \"clientId\": \"wallet-demo-client\",\r
+
+    \    \"clientName\": \"Wallet Demo Client\",\r
+
+    \    \"relyingPartyId\": \"mpartner-default-auth\",\r
+
+    \    \"logoUri\":
+    \"https://mosip.github.io/inji-config/logos/agro-vertias-logo.png\",\r
+
+    \    \"redirectUris\": [\r
+
+    \      \"io.mosip.residentapp.inji://oauthredirect\"\r
+
+    \    ],\r
+
+    \    \"userClaims\": [\r
+
+    \      \"name\", \"email\", \"phone_number\", \"birthdate\", \"picture\",
+    \"gender\"\r
+
+    \    ],\r
+
+    \    \"authContextRefs\": [\r
+
+    \      \"mosip:idp:acr:generated-code\",\r
+
+    \      \"mosip:idp:acr:static-code\"\r
+
+    \    ],\r
+
+    \    \"grantTypes\": [\"authorization_code\"],\r
+
+    \    \"clientAuthMethods\": [\"private_key_jwt\"],\r
+
+    \    \"publicKey\": {\r
+
+    \      \"kty\": \"RSA\",\r
+
+    \      \"e\": \"AQAB\",\r
+
+    \      \"use\": \"sig\",\r
+
+    \      \"kid\": \"1f81a12e-c9e0-48e7-8396-9c4eefaf516a\",\r
+
+    \      \"n\":
+    \"3Y9Ag2g5epTD6ycitKn3qH832DYruN79rojTVhzQyTGkrYTdnPar3iX5PDOhL4W3BSLYvGBCu\
+    qNRXhyBTxvL4MxqhcshICku-L0jCR0CQWe2MAZr3rqcLstI9rgWUh_fdkRNk9e4sbiZenfapOCB\
+    SqlWKHbiPMNO-6wxilqfTgQfA_Z8dd30fYwCLLDwsIzAok7k6JatYEQdSiCkN4DtSP4UDVXfByW\
+    VvvmUyPWdXGRo7kengUWo25xAzWm1QVn-ZTrxOLSKfy0xr8khadVy3F6vm8Enf1qDpetp4LQidv\
+    boehuOGgkicfltzWcKknRTJwot6HwFicRv_R_eAdGS7w\"\r
+
+    \    }\r
+
+    \  }\r
+
+    }"
+order: 2202400085323777

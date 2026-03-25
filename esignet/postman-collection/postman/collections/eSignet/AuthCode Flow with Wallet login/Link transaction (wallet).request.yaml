@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/linked-authorization/link-transaction"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "linkCode": "{{link_code}}"
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: >-
+      pm.test("Validate linkTransactionId", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.linkTransactionId).not.equals(null);
+          pm.environment.set("link_transaction_id", jsonData.response.linkTransactionId);
+      });
+    language: text/javascript
+order: 6000

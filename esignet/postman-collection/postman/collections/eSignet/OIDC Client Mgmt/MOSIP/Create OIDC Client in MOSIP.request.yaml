@@ -1,0 +1,81 @@
+$kind: http-request
+url: "{{internal_url}}/v1/partnermanager/oidc/client"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"string\",\r
+
+    \  \"version\": \"string\",\r
+
+    \  \"requesttime\": \"{{$isoTimestamp}}\",\r
+
+    \  \"metadata\": {},\r
+
+    \  \"request\": {\r
+
+    \    \"name\": \"{{$randomCompanyName}}\",\r
+
+    \    \"policyId\": \"93482\",\r
+
+    \    \"publicKey\": {{client_public_key}},\r
+
+    \    \"authPartnerId\": \"{{relying_party_id}}\",\r
+
+    \    \"logoUri\": \"{{$randomImageUrl}}\",\r
+
+    \    \"redirectUris\": [\r
+
+    \      \"{{redirection_url}}\"\r
+
+    \    ],\r
+
+    \    \"grantTypes\": [\r
+
+    \      \"authorization_code\"\r
+
+    \    ],\r
+
+    \    \"clientAuthMethods\": [\r
+
+    \      \"private_key_jwt\"\r
+
+    \    ]\r
+
+    \  }\r
+
+    }"
+auth:
+  type: apikey
+  credentials:
+    value: Authorization={{authtoken}}
+    key: Cookie
+scripts:
+  - type: beforeRequest
+    code: |-
+      
+      eval(pm.environment.get('pmlib_code'))
+      keyPair = pmlib.rs.KEYUTIL.generateKeypair("RSA", 2048);
+      jwkPrivateKey = pmlib.rs.KEYUTIL.getJWK(keyPair.prvKeyObj);
+      jwkPublicKey  = pmlib.rs.KEYUTIL.getJWK(keyPair.pubKeyObj);
+      jwkPublicKey["alg"] = "RS256";
+      jwkPublicKey["use"] = "sig";
+
+      pm.environment.set("client_public_key", JSON.stringify(jwkPublicKey))
+      pm.environment.set("client_private_key", JSON.stringify(jwkPrivateKey));
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      var jsonData = JSON.parse(responseBody);
+      var clientId = jsonData.response.clientId;
+      console.log(clientId);
+      pm.environment.set("client_id",clientId);
+      pm.environment.set("partner_api_key",clientId);
+
+      pm.test("Validate status", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.status).to.eql("ACTIVE");
+      });
+    language: text/javascript
+order: 2000

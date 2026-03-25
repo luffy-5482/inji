@@ -1,0 +1,86 @@
+$kind: collection
+variables:
+  - key: clientId
+    value: mock-oidc-client
+    disabled: false
+  - key: redirectionUrl
+    value: https://mosip.io/index.php
+    disabled: false
+  - key: relayingPartyId
+    value: mock-relaying-party-id
+    disabled: false
+  - key: status
+    value: '"ACTIVE"'
+    disabled: false
+  - key: acr_values
+    value: level0 level1
+    disabled: false
+  - key: scope
+    value: openid profile
+    disabled: false
+  - key: claims_request_param
+    value: |-
+      {
+                  "userinfo": {
+                      "email": {
+                          "value": null,
+                          "values": null,
+                 ...
+    disabled: false
+  - key: nonce
+    value: 2erwER34WW
+    disabled: false
+  - key: state
+    value: ptOO76SD
+    disabled: false
+  - key: expected_amr
+    value: '"pin"'
+    disabled: false
+  - key: transaction_id
+    value: ece56bfa-d0c2-46ce-a5a2-8500dfb393a7
+    disabled: false
+  - key: individual_id
+    value: "8267411571"
+    disabled: false
+  - key: auth_pin
+    value: "34789"
+    disabled: false
+  - key: url
+    value: http://localhost:8088/v1/idp
+    disabled: false
+  - key: url
+    value: ""
+    disabled: false
+  - key: code
+    value: ""
+    disabled: false
+  - key: client_assertion
+    value: ""
+    disabled: false
+  - key: access_token
+    value: ""
+    disabled: false
+  - key: linkTransactionId
+    value: ""
+    disabled: false
+  - key: wla_challenge
+    value: ""
+    disabled: false
+  - key: client_secret
+    value: JfoG3eLWLW7iSZDt
+    disabled: false
+  - key: client_secret
+    value: ""
+    disabled: false
+  - key: csrf_token
+    value: 08a17840-da3c-4b93-9ab3-83d9b297ac68
+    disabled: false
+  - key: codeChallenge
+    value: ""
+    disabled: false
+  - key: codeChallengeMethod
+    value: ""
+    disabled: false
+  - key: codeVerifier
+    value: ""
+    disabled: false

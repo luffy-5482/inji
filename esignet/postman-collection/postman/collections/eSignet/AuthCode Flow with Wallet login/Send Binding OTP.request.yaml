@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/binding/binding-otp"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+  PARTNER-ID: "{{relying_party_id}}"
+  PARTNER-API-KEY: "{{partner_api_key}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "individualId" : "{{individual_id}}",
+            "otpChannels" : ["email"]
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: >-
+      pm.test("Validate transactionId", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.transactionId).not.equals(null);
+          pm.environment.set("binding_transaction_id", jsonData.response.transactionId);
+      });
+    language: text/javascript
+order: 2000

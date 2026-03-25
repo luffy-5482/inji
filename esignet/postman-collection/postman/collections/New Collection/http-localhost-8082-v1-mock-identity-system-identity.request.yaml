@@ -1,0 +1,47 @@
+$kind: http-request
+name: http://localhost:8082/v1/mock-identity-system/identity
+url: http://localhost:8082/v1/mock-identity-system/identity
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"requestTime\": \"{{requestTime}}\",\r
+
+    \  \"request\": {\r
+
+    \    \"individualId\": \"9999941057\",\r
+
+    \    \"pin\": \"111111\",\r
+
+    \    \"fullName\": [{\"language\": \"eng\", \"value\": \"Farmer Test\"}],\r
+
+    \    \"givenName\": [{\"language\": \"eng\", \"value\": \"Farmer\"}],\r
+
+    \    \"familyName\": [{\"language\": \"eng\", \"value\": \"Test\"}],\r
+
+    \    \"gender\": [{\"language\": \"eng\", \"value\": \"Male\"}],\r
+
+    \    \"dateOfBirth\": \"1990/01/01\",\r
+
+    \    \"email\": \"farmer@example.com\",\r
+
+    \    \"phone\": \"9876543210\",\r
+
+    \    \"encodedPhoto\":
+    \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAW\
+    jR9awAAAABJRU5ErkJggg==\",\r
+
+    \    \"locality\": [{\"language\": \"eng\", \"value\": \"Test
+    Locality\"}],\r
+
+    \    \"region\": [{\"language\": \"eng\", \"value\": \"Test Region\"}],\r
+
+    \    \"country\": [{\"language\": \"eng\", \"value\": \"IN\"}],\r
+
+    \    \"postalCode\": \"560001\"\r
+
+    \  }\r
+
+    }"
+order: 4320851702325374

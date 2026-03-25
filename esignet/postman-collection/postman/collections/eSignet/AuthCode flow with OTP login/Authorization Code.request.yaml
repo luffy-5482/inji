@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/authorization/auth-code"
+method: POST
+headers:
+  X-XSRF-TOKEN: "{{csrf_token}}"
+  oauth-details-key: "{{oauth_details_key}}"
+  oauth-details-hash: "{{oauth_details_hash}}"
+body:
+  type: json
+  content: |-
+    {
+        "requestTime": "{{$isoTimestamp}}",
+        "request": {
+            "transactionId": "{{transaction_id}}",
+            "acceptedClaims": {{accepted_claims}},
+            "permittedAuthorizeScopes" : []
+        }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Validate code", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.response.code).not.equals(null);
+          pm.environment.set("code", jsonData.response.code);
+      });
+    language: text/javascript
+settings:
+  followRedirects: false
+order: 5000

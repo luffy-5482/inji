@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/v1/esignet/csrf/token"
+method: GET
+body:
+  type: json
+  content: ""
+scripts:
+  - type: afterResponse
+    code: |-
+      var token = pm.response.json().token;
+      pm.environment.set("csrf_token", token);
+    language: text/javascript
+order: 2000
