@@ -1,0 +1,145 @@
+cd /mnt/d/identy/inji/inji-wallet
+cd D:\identy\inji\inji-wallet
+cd D:\identy\inji\inji-verify
+cd D:\identy\esignet
+cd D:\identy\inji\inji-certify\docker-compose
+docker-compose up -d database certify certify-nginx
+docker logs docker-compose-esignet-1 -f --tail 5
+mvn clean install -Dgpg.skip=true -DskipTests=true -Dmaven.javadoc.skip=true
+
+ngrok http 8099
+
+adb connect <ip address>:(port of the device) = for wireless debugging 
+
+to share the wired connection to wsl 
+usbipd list
+usbipd bind --busid 1-1 --force
+
+
+sysdm.cpl (to edit system variables)
+
+if the build gets stuck (adb install android/app/build/outputs/apk/residentapp/debug/Inji_universal.apk)
+
+adb logcat -s ReactNativeJS:E AndroidRuntime:E
+
+docker network rm docker-compose_default
+
+cd ~/inji-wallet
+npm run android:mosip
+
+usbipd list
+usbipd attach --wsl --busid 2-1
+
+adb reverse tcp:3000 tcp:3000
+
+signingReport(SHA1)
+
+to modify:
+mimoto-issuers-config
+mimoto-default.properties
+.env
+
+
+credential_issuer: http://192.168.1.42:8091  ✅
+authorization_servers: http://192.168.1.42:8088  ✅ (your local eSignet)
+credential_endpoint: http://192.168.1.42:8091/v1/certify/issuance/credential  ✅
+
+ssh -R 80:localhost:8091 nokey@localhost.run  (ngrok allows only one thing so to run we are trying to use one more url)
+
+
+adb reverse tcp:8099 tcp:8099
+adb reverse tcp:8091 tcp:8091
+adb reverse tcp:8088 tcp:8088
+adb reverse tcp:8081 tcp:8081
+adb reverse tcp:3000 tcp:3000
+
+curl http://localhost:8091/.well-known/openid-credential-issuer | findstr "authorization_servers credential_issuer"
+curl http://localhost:3000/.well-known/openid-configuration | findstr "issuer"
+curl http://localhost:3000/.well-known/oauth-authorization-server | findstr "issuer"
+curl http://localhost:8099/v1/mimoto/issuers/Farmer/configuration
+curl http://localhost:8088/v1/esignet/oidc/.well-known/openid-configuration | findstr "issuer"
+curl http://localhost:8091/.well-known/openid-credential-issuer
+
+
+
+curl http://localhost:8091/.well-known/openid-credential-issuer
+curl http://localhost:3000/.well-known/openid-configuration
+curl http://localhost:8091/v1/certify/issuance/credential
+curl -X POST http://localhost:8099/v1/mimoto/get-token/Farmer
+curl http://localhost:8099/v1/mimoto/actuator/health
+curl http://localhost/mimoto-issuers-config.json
+
+curl -X POST http://localhost:8088/v1/esignet/oauth/v2/token -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code"
+
+docker exec -it docker-compose-postgres-1 psql -U postgres
+
+openssl genrsa -out wallet-private.pem 2048
+openssl rsa -in wallet-private.pem -pubout -out wallet-public.pem
+
+keytool -exportcert -alias wallet-demo-client -keystore D:\identy\inji\inji-wallet\mimoto\docker-compose\certs\oidckeystore.p12 -storetype PKCS12 -storepass xy4gh6swa2i -rfc > D:\temp_cert.pem && openssl x509 -in D:\temp_cert.pem -noout -modulus
+
+keytool -list -v -keystore oidckeystore.p12 -storetype PKCS12
+oidc key password-xy4gh6swa2i
+
+Phone (Inji Wallet)
+      ↓
+Mimoto (8099)
+      ↓
+Issuer Config (nginx)
+      ↓
+eSignet (OIDC authentication)
+      ↓
+Certify (VC issuance)
+      ↓
+Credential returned to wallet
+
+
+
+
+CREATE TABLE IF NOT EXISTS certify.farmer_identity (
+    individual_id VARCHAR(100) PRIMARY KEY,
+    farmer_name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    dob VARCHAR(10) NOT NULL,
+    farmer_details JSONB NOT NULL
+);
+
+INSERT INTO certify.farmer_identity
+(individual_id, farmer_name, phone_number, dob, farmer_details)
+VALUES
+(
+ '1001',
+ 'Ravi Kumar',
+ '9876543210',
+ '1990-02-10',
+ '{
+   "highestEducation": "Master''s Degree",
+   "maritalStatus": "Divorced",
+   "typeOfHouse": "Cottage",
+   "numberOfDependents": 1,
+   "address": {
+       "streetAddress": "234 River View Road",
+       "addressLocality": "Harvest Springs",
+       "addressRegion": "Western State",
+       "postalCode": "12345",
+       "addressCountry": "India"
+   },
+   "knowsLanguage": ["English", "German", "French"],
+   "works": "Seasonal",
+   "farmingTypes": ["Aquaculture", "Sedentary"],
+   "landArea": 120.3
+ }'
+);
+cd D:\identy\inji\inji-wallet\mimoto
+set JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot
+mvn clean package -DskipTests -q
+docker build --no-cache -t mimoto:local .
+cd docker-compose
+docker-compose down mimoto-service
+docker-compose up -d mimoto-service
+
+Charles for tracking every single request 
+
+
+set JAVA_HOME=C:\Program Files\Java\jdk-17
+set PATH=%JAVA_HOME%\bin;%PATH%
