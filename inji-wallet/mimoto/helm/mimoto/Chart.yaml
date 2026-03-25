@@ -1,0 +1,19 @@
+apiVersion: v2
+name: mimoto
+description: A Helm chart for INJI mimoto Application
+type: application
+version: 0.21.0
+appVersion: ""
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://inji.io
+keywords:
+  - mosip
+  - mimoto
+maintainers:
+  - email: info@inji.io
+    name: INJI

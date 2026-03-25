@@ -1,0 +1,19 @@
+package io.mosip.mimoto.repository;
+
+import io.mosip.mimoto.model.VerifiableCredential;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface WalletCredentialsRepository extends JpaRepository<VerifiableCredential, String> {
+    Optional<VerifiableCredential> findByIdAndWalletId(String id,  String walletId);
+
+    @Query(value = "SELECT EXISTS (SELECT 1 FROM verifiable_credentials WHERE credential_metadata->>'issuerId' = :issuerId AND credential_metadata->>'credentialType' = :credentialType AND wallet_id = :walletId)", nativeQuery = true)
+    boolean existsByIssuerIdAndCredentialTypeAndWalletId(@Param("issuerId") String issuerId, @Param("credentialType") String credentialType, @Param("walletId") String walletId);
+
+    List<VerifiableCredential> findByWalletIdOrderByCreatedAtDesc(String walletId);
+}

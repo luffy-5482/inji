@@ -1,0 +1,1298 @@
+{
+	"info": {
+		"_postman_id": "75c40eda-2aec-4fd7-a70b-ac2a40e8e04b",
+		"name": "MIMOTO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29153193"
+	},
+	"item": [
+		{
+			"name": "Issuers",
+			"item": [
+				{
+					"name": "get Issuers List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = pm.cookies.get('XSRF-TOKEN');",
+									"pm.environment.set('XSRF_TOKEN', token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/issuers"
+					},
+					"response": []
+				},
+				{
+					"name": "get Issuers Config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/issuers/StayProtected"
+					},
+					"response": []
+				},
+				{
+					"name": "get Issuers Wellknown",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/issuers/StayProtected/well-known-proxy"
+					},
+					"response": []
+				},
+				{
+					"name": "get Issuers Configuration",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/issuers/StayProtected/configuration"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Issuers List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/issuers?search=Sunbird",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"issuers"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Sunbird"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Credential With GetToken",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "GL9N1V-zW_OFgLSa2VBANv8qz6XOxh3yBkoaonjplms",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "https://injiweb.dev1.mosip.net/redirect",
+									"type": "text"
+								},
+								{
+									"key": "code_verifier",
+									"value": "Sq6nZNToevtx8LX-H2LI_~_Ds9vZGAImDKYjXw70LCJ",
+									"type": "text"
+								},
+								{
+									"key": "issuer",
+									"value": "StayProtected",
+									"type": "text"
+								},
+								{
+									"key": "credential",
+									"value": "InsuranceCredential",
+									"type": "text"
+								},
+								{
+									"key": "vcStorageExpiryLimitInTimes",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "locale",
+									"value": "en",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{HOST}}/credentials/download"
+					},
+					"response": []
+				},
+				{
+					"name": "Presentation Authorize",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/authorize?response_type=vp_token&resource=https://raw.githubusercontent.com/tw-mosip/verify-credential-js/main/VC/sunbird_qr.json&client_id=https://injiverify.dev2.mosip.net&redirect_uri=https://injiverify.dev2.mosip.net/redirect&presentation_definition=%7B%22id%22%3A%22vp%20token%20example%22%2C%22input_descriptors%22%3A%5B%7B%22id%22%3A%22id%20card%20credential%22%2C%22format%22%3A%7B%22ldpVc%22%3A%7B%22proofTypes%22%3A%5B%22Ed25519Signature2020%22%5D%7D%7D%7D%5D%7D",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"authorize"
+							],
+							"query": [
+								{
+									"key": "response_type",
+									"value": "vp_token"
+								},
+								{
+									"key": "resource",
+									"value": "https://raw.githubusercontent.com/tw-mosip/verify-credential-js/main/VC/sunbird_qr.json"
+								},
+								{
+									"key": "client_id",
+									"value": "https://injiverify.dev2.mosip.net"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "https://injiverify.dev2.mosip.net/redirect"
+								},
+								{
+									"key": "presentation_definition",
+									"value": "%7B%22id%22%3A%22vp%20token%20example%22%2C%22input_descriptors%22%3A%5B%7B%22id%22%3A%22id%20card%20credential%22%2C%22format%22%3A%7B%22ldpVc%22%3A%7B%22proofTypes%22%3A%5B%22Ed25519Signature2020%22%5D%7D%7D%7D%5D%7D"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Download VC - OTP",
+			"item": [
+				{
+					"name": "Req OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"individualId\": \"{{VC_ID}}\",\n    \"otpChannel\": [\n        \"EMAIL\",\n        \"PHONE\"\n    ],\n    \"transactionID\": \"1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/req/otp"
+					},
+					"response": []
+				},
+				{
+					"name": "Credential Share Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"individualId\":  \"{{VC_ID}}\",\n  \"otp\": \"111111\",\n  \"transactionID\": \"1234567890\",\n  \"user\": \"mono\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/credentialshare/request"
+					},
+					"response": []
+				},
+				{
+					"name": "Credential Share Status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/credentialshare/request/status/c0fc00ae-6fc7-4e9f-b818-f51827582c2f"
+					},
+					"response": []
+				},
+				{
+					"name": "Credential Share Download VC",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"individualId\":  \"{{VC_ID}}\",\n  \"requestId\": \"61cedc07-e036-46f5-8c75-97d852406373\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/credentialshare/download"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet Binding",
+			"item": [
+				{
+					"name": "Binding OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"request\": {\n        \"individualId\": \"4536710485\",\n        \"otpChannels\": [\n            \"EMAIL\",\n            \"PHONE\"\n        ]\n    }\n}"
+						},
+						"url": "{{HOST}}/binding-otp"
+					},
+					"response": []
+				},
+				{
+					"name": "Wallet Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"request\": {\n        \"individualId\": \"6148072053\",\n        \"challengeList\": [\n            {\n                \"authFactorType\": \"OTP\",\n                \"challenge\": \"111111\",\n                \"format\": \"alpha-numeric\"\n            }\n        ],\n        \"publicKey\": \"-----BEGIN RSA PUBLIC KEY-----\\nMIICCgKCAgEArk/N6Us8TkfH+r1UGCqTGWegJ3UzqHXmj49uE3l9ygIPrTB7Hee8\\ntiVnlNKcQR/7EipumAcNzOFzaysUUIX8rh/QSdlwYYXvC4OT9fLg5tmToYc5x3pN\\nO1k7qg9fnMb/Ksr4D95xUUxQjMLlbojBNWjLhvdP4da1gWUeAdfjIfyLjZGYiD8r\\nUqsVqOfmrec9Y0nLsIsUq735NVl2WIP9mMfjXuRId4MgEE3mN6x/Gj9Ov0AWfb48\\n22wLgybggTdIJZlCBAnPn/n+oiowqUdXADAB4CIaVH8hDJ1fz3Ag2RetriqwrcLF\\nVSK+PyVuLD261BhIeQrgyHdKC6qilVBOYIMqtXjazCdjGICNFoEa1nVP6mu85RN1\\ny8TTS+4ATUTm44++TFSNfsEEpagvd6O/BWlj6mJNGB9dmtEohowwR5fcSHgKbGtP\\ng5J49fKeSDapEln2A/xL7Ubk8KFzzgcQvPWttGaazs7tqdOE4iOMkI72XFbyvIVz\\nzwQEB7vOuRJRclP30SkcR81u694vCtXJ2t2pFUMQVJXat9ypg5BtiZMwBtAnc0Pz\\nDWdGCR5LIpJIaDISmPumHGAzeeRfREbsoVaCdi99vORoxBjuscpEOa5+MgYDKM3S\\nsJZWl2E2/7Kt9KCRVJoqeEkFFKq696zKVD3qbhbZJG3TjBcgYfbN2jMCAwEAAQ==\\n-----END RSA PUBLIC KEY-----\\n\",\n        \"authFactorType\": \"WLA\",\n        \"format\": \"jwt\"\n    }\n}"
+						},
+						"url": "{{HOST}}/wallet-binding"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Verifiers",
+			"item": [
+				{
+					"name": "Get Verifiers List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/verifiers"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallets",
+			"item": [
+				{
+					"name": "Create Wallet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Store the response body in a variable",
+									"let responseBody = pm.response.json();",
+									"",
+									"// Parse the response body to extract the walletId",
+									"let walletId = responseBody.walletId;",
+									"",
+									"pm.environment.set(\"walletId\", walletId);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"walletName\": \"default\",\n    \"walletPin\": 123456,\n    \"confirmWalletPin\": 123456\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/wallets"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wallets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseBody = pm.response.json();",
+									"",
+									"// Parse the response body to extract the walletId",
+									"let walletId = responseBody[0].walletId;",
+									"",
+									"pm.environment.set(\"walletId\", walletId);",
+									"",
+									"// Extract and store CSRF token",
+									"var token = pm.cookies.get('XSRF-TOKEN');",
+									"pm.environment.set('XSRF_TOKEN', token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/wallets"
+					},
+					"response": []
+				},
+				{
+					"name": "Unlock Wallet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"walletPin\": \"{{walletPin}}\"\n}"
+						},
+						"url": "{{HOST}}/wallets/{{walletId}}/unlock"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Wallet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": "{{HOST}}/wallets/<walletId>"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Trusted Verifier",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "SESSION={{SESSION_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"verifierId\": \"mock-client\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/trusted-verifiers",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"trusted-verifiers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet Presentations",
+			"item": [
+				{
+					"name": "Create Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Store the response body in a variable",
+									"let presentationResponse = pm.response.json();",
+									"",
+									"// Parse the response body to extract the presentationId",
+									"let presentationId = presentationResponse.presentationId;",
+									"",
+									"pm.environment.set(\"presentationId\", presentationId);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"authorizationRequestUrl\": \"{{verifierAuthorizationRequestUrl}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/presentations",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"presentations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Matching Credentials",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/presentations/{{presentationId}}/credentials",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"presentations",
+								"{{presentationId}}",
+								"credentials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Presentation",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"selectedCredentials\": [\"{{credentialId1}}\", \"{{credentialId2}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/presentations/{{presentationId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"presentations",
+								"{{presentationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Reject Verifier",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "SESSION={{SESSION_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"errorCode\": \"access_denied\",\n  \"errorMessage\": \"User denied authorization to share credentials\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/presentations/{{presentationId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"presentations",
+								"{{presentationId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "SESSION={{SESSION_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": "{{HOST}}/users/me"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet Credentials",
+			"item": [
+				{
+					"name": "authCode for VC download (pre-requisite)",
+					"item": [
+						{
+							"name": "Get CSRF token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var token = pm.cookies.get(\"XSRF-TOKEN\")",
+											"pm.collectionVariables.set(\"csrf_token\", token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{authServerUrl}}/csrf/token"
+							},
+							"response": []
+						},
+						{
+							"name": "Authorize / OAuthdetails request V2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var btoa = require('btoa');",
+											"",
+											"var token = pm.cookies.get(\"XSRF-TOKEN\")",
+											"pm.collectionVariables.set(\"csrf_token\", token);",
+											"",
+											"pm.test(\"Validate transactionId\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.response.transactionId).not.equals(null);",
+											"    pm.collectionVariables.set(\"transaction_id\", jsonData.response.transactionId);",
+											"});",
+											"",
+											"pm.test(\"Validate auth factors\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.response.authFactors[0].name).to.eql(pm.environment.get(\"expected_amr\"));",
+											"});",
+											"",
+											"pm.test(\"set oauth-details-hash\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var sha256Hash = CryptoJS.SHA256(JSON.stringify(jsonData.response));",
+											"    var base64Encoded = sha256Hash.toString(CryptoJS.enc.Base64);",
+											"    // Remove padding characters",
+											"    base64Encoded = base64Encoded.replace(/=+$/, '');",
+											"    // Replace '+' with '-' and '/' with '_' to convert to base64 URL encoding",
+											"    base64Encoded = base64Encoded.replace(/\\+/g, '-').replace(/\\//g, '_');",
+											"    pm.collectionVariables.set(\"oauth_details_key\", jsonData.response.transactionId);",
+											"    pm.collectionVariables.set(\"oauth_details_hash\", base64Encoded);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"eval(pm.globals.get('pmlib_code'))",
+											"",
+											"const pkce = pmlib.pkceChallenge();",
+											"pm.collectionVariables.set(\"codeChallenge\",pkce.code_challenge);",
+											"pm.collectionVariables.set(\"codeChallengeMethod\",pkce.code_challenge_method);",
+											"pm.environment.set(\"codeVerifier\",pkce.code_verifier);",
+											"",
+											"",
+											"// Generate a random nonce (UUID-style or random hex)",
+											"const nonce = Math.random().toString(36).substring(2) + Date.now().toString(36);",
+											"pm.collectionVariables.set(\"nonce\", nonce);",
+											"",
+											"",
+											"const generateRandomString = (length = 43, charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~') => {",
+											"    let randomString = '';",
+											"    for (let i = 0; i < length; i++) {",
+											"        const randomIndex = Math.floor(Math.random() * charset.length);",
+											"        randomString += charset[randomIndex];",
+											"    }",
+											"    return randomString;",
+											"};",
+											"",
+											"const state = generateRandomString();",
+											"pm.collectionVariables.set(\"stateForDownload\", state);",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-XSRF-TOKEN",
+										"value": "{{csrf_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"request\": {\n        \"clientId\": \"{{clientIdForVcDownload}}\",\n        \"scope\": \"mock_identity_vc_ldp\",\n        \"responseType\": \"code\",\n        \"redirectUri\": \"{{redirectionUrlForVcDownload}}\",\n        \"display\": \"popup\",\n        \"prompt\": \"login\",\n        \"acrValues\": \"mosip:idp:acr:generated-code\",\n        \"nonce\" : \"{{nonce}}\",\n        \"state\" : \"{{stateForDownload}}\",\n        \"claimsLocales\" : \"en\",\n        \"codeChallenge\" : \"{{codeChallenge}}\",\n        \"codeChallengeMethod\" : \"{{codeChallengeMethod}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{authServerUrl}}/authorization/v2/oauth-details"
+							},
+							"response": []
+						},
+						{
+							"name": "Send OTP",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-XSRF-TOKEN",
+										"value": "{{csrf_token}}",
+										"type": "text"
+									},
+									{
+										"key": "oauth-details-key",
+										"value": "{{oauth_details_key}}",
+										"type": "text"
+									},
+									{
+										"key": "oauth-details-hash",
+										"value": "{{oauth_details_hash}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"request\": {\n        \"transactionId\": \"{{transaction_id}}\",\n        \"individualId\": \"{{individual_id}}\",\n        \"otpChannels\" : [\"email\",\"phone\"],\n        \"captchaToken\" : \"dummy\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{authServerUrl}}/authorization/send-otp"
+							},
+							"response": []
+						},
+						{
+							"name": "Authenticate User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var token = pm.cookies.get(\"XSRF-TOKEN\")",
+											"pm.collectionVariables.set(\"csrf_token\", token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-XSRF-TOKEN",
+										"value": "{{csrf_token}}",
+										"type": "text"
+									},
+									{
+										"key": "oauth-details-key",
+										"value": "{{oauth_details_key}}",
+										"type": "text"
+									},
+									{
+										"key": "oauth-details-hash",
+										"value": "{{oauth_details_hash}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"request\": {\n        \"transactionId\": \"{{transaction_id}}\",\n        \"individualId\": \"{{individual_id}}\",\n        \"challengeList\" : [\n            {\n                \"authFactorType\" : \"OTP\",\n                \"challenge\" : \"111111\",\n                \"format\" : \"alpha-numeric\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{authServerUrl}}/authorization/v3/authenticate"
+							},
+							"response": []
+						},
+						{
+							"name": "Authorization Code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var token = pm.cookies.get(\"XSRF-TOKEN\")",
+											"pm.collectionVariables.set(\"csrf_token\", token);",
+											"",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.response.code).not.equals(null);",
+											"pm.environment.set(\"authCode\", jsonData.response.code);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"followRedirects": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-XSRF-TOKEN",
+										"value": "{{csrf_token}}",
+										"type": "text"
+									},
+									{
+										"key": "oauth-details-key",
+										"value": "{{oauth_details_key}}",
+										"type": "text"
+									},
+									{
+										"key": "oauth-details-hash",
+										"value": "{{oauth_details_hash}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"request\": {\n        \"transactionId\": \"{{transaction_id}}\",\n        \"acceptedClaims\": [],\n        \"permittedAuthorizeScopes\" : []\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{authServerUrl}}/authorization/auth-code"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Save Credential",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.environment.set(\"credentialId\", response.credentialId);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grantType\": \"authorization_code\",\n    \"code\": \"{{authCode}}\",\n    \"codeVerifier\": \"{{codeVerifier}}\",\n    \"redirectUri\": \"http://localhost:3004/redirect\",\n    \"credentialConfigurationId\": \"{{credentialConfigurationId}}\",\n    \"issuer\": \"{{issuer}}\"\n}"
+						},
+						"url": "{{HOST}}/wallets/{{walletId}}/credentials"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All Credentials",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/credentials",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"credentials"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "<locale>",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View or Save Credential",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/pdf",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/wallets/{{walletId}}/credentials/{{credentialId}}?action=inline",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"wallets",
+								"{{walletId}}",
+								"credentials",
+								"{{credentialId}}"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "inline"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Credential",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": "{{HOST}}/wallets/{{walletId}}/credentials/{{credentialId}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Token login",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": {
+								"clientSecret": "{{clientSecret}}",
+								"clientId": "{{clientId}}",
+								"accessTokenUrl": "https://oauth2.googleapis.com/token",
+								"scope": "profile email",
+								"redirect_uri": "http://localhost:8099/v1/mimoto/oauth2/callback/google",
+								"useBrowser": false,
+								"authUrl": "https://accounts.google.com/o/oauth2/auth?prompt=select_account",
+								"tokenName": "AuthToken",
+								"addTokenTo": "header"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": "{{HOST}}/auth/google/token-login"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{XSRF_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": "{{HOST}}/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "All properties",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{HOST}}/allProperties"
+			},
+			"response": []
+		},
+		{
+			"name": "IndividualId Req OTP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"mosip.identity.otp.internal\",\n    \"aid\": \"10011100600000220231011051701\",\n    \"metadata\": {},\n    \"requestTime\": \"{{$isoTimestamp}}\",\n    \"version\": \"1.0\",\n    \"otpChannel\": [\n        \"EMAIL\",\n        \"PHONE\"\n    ],\n    \"transactionID\": \"1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{HOST}}/req/individualId/otp"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "proof_jwt",
+			"value": ""
+		},
+		{
+			"key": "codeChallenge",
+			"value": ""
+		},
+		{
+			"key": "codeChallengeMethod",
+			"value": ""
+		},
+		{
+			"key": "codeVerifier",
+			"value": ""
+		},
+		{
+			"key": "code",
+			"value": ""
+		},
+		{
+			"key": "authCode",
+			"value": ""
+		},
+		{
+			"key": "nonce",
+			"value": ""
+		},
+		{
+			"key": "stateForDownload",
+			"value": ""
+		},
+		{
+			"key": "csrf_token",
+			"value": ""
+		},
+		{
+			"key": "transaction_id",
+			"value": ""
+		},
+		{
+			"key": "oauth_details_key",
+			"value": ""
+		},
+		{
+			"key": "oauth_details_hash",
+			"value": ""
+		},
+		{
+			"key": "XSRF_TOKEN",
+			"value": ""
+		}
+	]
+}
