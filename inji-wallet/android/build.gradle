@@ -1,0 +1,65 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        buildToolsVersion = "35.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 35
+        targetSdkVersion = 35
+        ndkVersion = "21.4.7075529"
+        kotlinVersion = "1.9.22"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.4.0")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    }
+}
+
+
+// Expo Camera (auto generated — DO NOT MODIFY)
+def expoCameraMavenPath = new File(
+        ["node", "--print", "require.resolve('expo-camera/package.json')"]
+                .execute(null, rootDir)
+                .text
+                .trim(),
+        "../android/maven"
+)
+
+allprojects {
+    repositories {
+
+        google()
+
+        mavenCentral()
+        maven {
+            url "https://identy.jfrog.io/identy/identy-face-release"
+            credentials {
+                username = "tayyab_identy"
+                password = "FgvwKffitkHL7N"
+            }
+        }
+
+
+
+        mavenCentral()
+        maven { url("https://central.sonatype.com/repository/maven-snapshots/") }
+        maven { url(expoCameraMavenPath) }
+        maven { url("https://repo.danubetech.com/repository/maven-public/") }
+
+        configurations.all {
+            resolutionStrategy {
+                cacheChangingModulesFor 0, 'seconds'
+                force "com.facebook.soloader:soloader:0.9.0+"
+                force "com.apicatalog:titanium-json-ld:1.3.1"
+            }
+        }
+    }
+}

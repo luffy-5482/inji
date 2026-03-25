@@ -1,0 +1,1195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_settings"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/settings_iv_horizontal_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Top minimize button"
+        app:srcCompat="@drawable/ic_baseline" />
+
+    <TextView
+        android:id="@+id/settings_tv_settings_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Settings"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/settings_tv_sdk_version_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="SDK version:"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/settings_tv_sdk_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/sdk_version"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/settings_nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/settings_spinner_configs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_as_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settings_tv_as_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="AS Level"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_as_level"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_none"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="NONE"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_low"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="LOW"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="MEDIUM"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_moderate"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="MODERATE"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_balanced_high"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="BALANCED_HIGH"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_high"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="HIGH"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_balanced_very_high"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="BALANCED_VERY_HIGH"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_very_high"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="VERY_HIGH"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_highest"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="HIGHEST"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_timeout_max"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Timeout Max"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_license_check"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="License Check"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_capture_from"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/settings_tv_capture_from"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Capture from"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_capture_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="Camera"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="Gallery"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_license"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/settings_tv_license"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="License"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_license"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_valid"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="Valid"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_expired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="Expired"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_torch"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Torch"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_mask"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect Mask"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_glasses"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect Glasses"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_sunglasses"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect Sunglasses"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_hat"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect HAT"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+
+           <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_HAND"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect HAND"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_EYE_OPENNESS"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect EYE_OPENNESS"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_detect_MOUTH_CLOSURE"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Detect MOUTH_CLOSURE"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_strict_capture_mode"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Strict Capture Mode"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_read_bar_codes"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Read BarCodes"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_time_limit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/settings_tv_time_limit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Time limit"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/settings_et_time_limit"
+                    style="@style/CustomEditText"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:autofillHints="Time limits"
+                    android:ems="2"
+                    android:hint="0-90"
+                    android:inputType="number|numberDecimal|numberSigned"
+                    android:labelFor="@id/settings_tv_time_limit"
+                    android:maxLength="4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200"
+                android:visibility="gone" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_allowed_attempt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/settings_tv_allowed_attempts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/settings_et_allowed_attempts"
+                    android:text="Allowed attempts"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/settings_et_allowed_attempts"
+                    style="@style/CustomEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:autofillHints="Allowed attempts"
+                    android:ems="2"
+                    android:hint="0-5"
+                    android:inputType="number|numberDecimal|numberSigned"
+                    android:maxLength="4"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_required_templates"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/settings_tv_required_templates"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Face Templates"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/settings_cg_required_templates"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_png"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="PNG"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_jpeg"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="JPEG"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_jp2k"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="JP2K"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_iso_19794_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="ISO_19794_5"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_identy_type_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="IDENTY_TYPE_1"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_bitmap"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="Bitmap"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_iso_39794_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="ISO_39794_5"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/settings_cb_nist_itl_1_2015"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:checkable="true"
+                        android:layoutDirection="ltr"
+                        android:text="NIST_ITL_1_2015"
+                        android:textAlignment="center"
+                        app:checkedIconEnabled="false"
+                        app:chipBackgroundColor="@color/bg_chip_state_list" />
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_icao"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="ICAO"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_liveness_server"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Liveness server"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_liveness_withinSDK"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Liveness WithinSDK"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_hd_capture"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="HD CAPTURE"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_add_background_color"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Add Background Color"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_offline_mode"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Offline mode"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_training"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Training"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_face_template_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settings_tv_face_template_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="With FaceTemplate"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_face_template_mode"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_png"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="PNG"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_jpeg"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="JPEG"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_jp2k"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="JP2K"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_iso_19794_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="ISO_19794_5"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_iso_39794_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="ISO_39794_5"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_bitmap"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="Bitmap"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_nist_itl_1_2015"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="NIST_ITL_1_2015"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_face_template_identy_type_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="IDENTY_TYPE_1"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_retake"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Retake"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_enrol_test_user"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Enrol with test user"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_with_template_limits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/settings_switch_with_template_limits"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Verify with templates limits"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/black"
+                    android:theme="@style/CustomSwitch" />
+
+                <EditText
+                    android:id="@+id/settings_et_verify_with_templates_duration"
+                    style="@style/CustomEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:autofillHints="Front seconds"
+                    android:ems="3"
+                    android:hint="Sec"
+                    android:inputType="number|numberDecimal|numberSigned"
+                    android:maxLength="4"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toStartOf="@+id/settings_et_verify_with_templates_repeats"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/settings_et_verify_with_templates_repeats"
+                    style="@style/CustomEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="64dp"
+                    android:autofillHints="Front repeats"
+                    android:ems="3"
+                    android:hint="Repts"
+                    android:inputType="number|numberDecimal|numberSigned"
+                    android:maxLength="4"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/settings_et_verify_with_templates_duration"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_enrolment_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settings_tv_enrolment_mode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Enrolment mode"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_enrolment_mode"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="IMAGE"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_identy_template"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="IDENTY_TEMPLATE"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_identy_none"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="NONE"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_locale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settings_tv_locale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SDK locale"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_locale"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_en"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="en"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_es"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="es"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_save_enrolment"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Save Enrolment"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_display_result"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Display Result"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_uioption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settings_tv_uioption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="UI OPTION"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/settings_rg_uioption"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_uioption_custom"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="CUSTOM"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_uioption_standard"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="STANDARD"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_uioption_ticking"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="TICKING"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                    <RadioButton
+                        android:id="@+id/settings_rb_uioption_ticking_v2"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+
+                        android:gravity="center"
+                        android:text="TICKING_V2"
+                        android:textColor="@color/black"
+                        android:theme="@style/CustomRadioButton" />
+
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_encryption"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Encryption"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_decryption"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Decryption"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settings_switch_assisted_mode"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Assisted mode"
+                android:textColor="@color/black"
+                android:theme="@style/CustomSwitch" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_cl_import_oneton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/settings_tv_import_oneton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Import 1:N data"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/settings_btn_import_oneton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="@color/colorbuttonbg"
+                    android:text="Import"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/settings_btn_tv_export_oneton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="Export"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/settings_btn_import_oneton"
+                    app:layout_constraintTop_toTopOf="@+id/settings_btn_import_oneton" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

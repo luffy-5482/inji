@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+
+
+<style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+    <item name="android:background">@android:color/transparent</item>
+</style>
+<style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+</style>
+
+<style name="CustomSwitch" parent="Theme.AppCompat">
+    <!-- active thumb-->
+    <item name="colorControlActivated">@color/colorPrimary</item>
+    <!-- inactive thumb-->
+    <item name="colorSwitchThumbNormal">@color/grey200</item>
+    <!-- inactive track color -->
+    <item name="android:colorForeground">@color/grey800</item>
+</style>
+
+<style name="CustomRadioButton" parent="AppTheme">
+    <item name="colorAccent">@color/colorPrimary</item>
+</style>
+
+<style name="CustomEditText">
+    <item name="android:textColorHint">#808080</item>
+    <item name="android:textColor">@color/black</item>
+    <item name="backgroundTint">@color/colorPrimary</item>
+    <item name="android:textColorHighlight">@color/colorPrimary</item>
+    <item name="android:textCursorDrawable">@color/colorPrimary</item>
+    <item name="android:textSelectHandle">@color/colorPrimary</item>
+    <item name="android:textSelectHandleLeft">@color/colorPrimary</item>
+    <item name="android:textSelectHandleRight">@color/colorPrimary</item>
+</style>
+
+</resources>
+

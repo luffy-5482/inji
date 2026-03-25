@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    tools:context="io.identy.facecustomerdemo.activity.MenuFace">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/splash_logo"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:contentDescription="TODO"
+                android:padding="15dp"
+                android:src="@drawable/logo"/>
+
+            <LinearLayout
+                android:id="@+id/radio_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/use_case_txt"
+                android:gravity="center">
+
+                <RadioGroup
+                    android:id="@+id/main_rg_onetone_oneton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/main_rb_onetoone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="1:1" />
+
+                    <RadioButton
+                        android:id="@+id/main_rb_oneton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1:N" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radio_selection"
+
+                android:background="@color/colorbuttonbg2"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <ImageView
+                    android:id="@+id/face_previewButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="0.3"
+                    android:contentDescription="TODO"
+                    android:elevation="1dp"
+                    android:src="@drawable/preview" />
+
+                <ImageView
+                    android:id="@+id/face_regButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="0.3"
+                    android:contentDescription="TODO"
+                    android:elevation="1dp"
+                    android:src="@drawable/enrol" />
+
+                <ImageView
+                    android:id="@+id/face_validateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="0.3"
+                    android:contentDescription="TODO"
+                    android:elevation="1dp"
+                    android:src="@drawable/verify"
+                    android:text="VERIFY" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/newoption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorbuttonbg"
+                android:orientation="vertical"
+                android:weightSum="1.0">
+
+                <Button
+                    android:id="@+id/main_enroll_with_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="Enroll with template" />
+
+                <Button
+                    android:id="@+id/main_verify_with_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="Verify with template" />
+
+                <Button
+                    android:id="@+id/main_verify_with_picture_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="Verify with picture" />
+
+                <Button
+                    android:id="@+id/main_match_with_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="Match With Template" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/person_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radio_selection"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/use_case_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splash_logo"
+                android:layout_margin="30dp"
+                android:gravity="center"
+                android:text="SELECT USE CASE"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>
